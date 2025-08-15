@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AuroraCorp • Finance Ops</title>
+  <meta name="robots" content="noindex">
+  <style>
+    :root{
+      --bg:#0b1020;
+      --card:#ffffff;
+      --ink:#0c1222;
+      --muted:#64748b;
+      --brand:#1d4ed8;
+      --brand-2:#60a5fa;
+      --ok:#16a34a;
+      --shadow: 0 20px 40px rgba(2,8,23,.2);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Arial,"Noto Sans","Helvetica Neue",sans-serif;
+      color:var(--ink);
+      background: radial-gradient(1200px 600px at 80% -20%, rgba(96,165,250,.35), transparent 60%),
+                  radial-gradient(1000px 500px at 10% -10%, rgba(29,78,216,.35), transparent 60%),
+                  var(--bg);
+    }
+    .shell{min-height:100%; display:grid; grid-template-rows:auto 1fr auto}
+    header{
+      display:flex; align-items:center; gap:14px;
+      padding:20px 24px; color:white;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background: linear-gradient(90deg, rgba(29,78,216,.5), rgba(2,6,23,.0));
+      backdrop-filter: blur(6px);
+    }
+    .logo{
+      display:flex; align-items:center; gap:10px; font-weight:700; letter-spacing:.2px
+    }
+    .logo-badge{
+      width:28px;height:28px;border-radius:8px;
+      background: linear-gradient(180deg, var(--brand), var(--brand-2));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 6px 20px rgba(29,78,216,.6);
+    }
+    header .meta{margin-left:auto; font-size:12px; opacity:.9}
+    main{display:grid; place-items:center; padding:40px 20px;}
+    .card{
+      width:min(880px, 92vw);
+      background:var(--card);
+      border-radius:var(--radius);
+      box-shadow: var(--shadow);
+      padding:28px;
+    }
+    h1{margin:0 0 12px 0; font-size: clamp(22px, 3vw, 28px)}
+    .sub{color:var(--muted); margin-bottom:20px}
+    .grid{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:18px 0 22px}
+    .kpi{
+      border:1px solid #e2e8f0; border-radius:14px; padding:14px 16px;
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .kpi .label{color:var(--muted); font-size:12px}
+    .kpi .value{font-weight:700}
+    .cta{
+      display:flex; gap:12px; align-items:center; flex-wrap:wrap;
+      margin-top:8px;
+    }
+    button{
+      appearance:none; border:0; cursor:pointer;
+      padding:12px 16px; border-radius:12px; font-weight:600;
+    }
+    .btn-primary{
+      background:linear-gradient(180deg, var(--brand-2), var(--brand));
+      color:white; box-shadow: 0 10px 22px rgba(29,78,216,.35);
+    }
+    .btn-ghost{background:#f1f5f9}
+    .foot{margin-top:18px; font-size:12px; color:#64748bcc}
+    .foot small{display:block}
+    .mask{
+      position: fixed; inset:0; display:none;
+      background: rgba(2,6,23,.6);
+      align-items:center; justify-content:center;
+      padding:20px; z-index:50;
+    }
+    .modal{
+      background:white; width:min(620px, 92vw);
+      border-radius:18px; padding:24px 22px;
+      text-align:center; box-shadow: var(--shadow);
+    }
+    .modal h2{margin:0 0 10px 0; font-size: clamp(22px, 3vw, 28px)}
+    .modal p{margin:0 0 12px 0; color:#334155}
+    .badge{
+      display:inline-block; padding:6px 10px; border-radius:999px;
+      background:#ecfeff; color:#155e75; font-size:12px; margin-bottom:8px
+    }
+    .hidden{display:none}
+    .brandline{height:3px; background:linear-gradient(90deg, var(--brand), var(--brand-2)); border-radius:99px; margin:10px 0 20px}
+    @media (max-width:680px){ .grid{grid-template-columns:1fr} }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div class="logo">
+        <div class="logo-badge" aria-hidden="true"></div>
+        <div>AuroraCorp</div>
+        <div style="opacity:.7;font-weight:600">Finance Ops</div>
+      </div>
+      <div class="meta">Case ID: <strong id="caseId">FIN-2025-9081</strong></div>
+    </header>
+
+    <main>
+      <section class="card" aria-labelledby="title">
+        <div class="brandline"></div>
+        <h1 id="title">Service Credit Program — Eligibility Review</h1>
+        <div class="sub" id="hello">Hello there, please review the details below and confirm.</div>
+
+        <div class="grid" role="list">
+          <div class="kpi" role="listitem">
+            <div>
+              <div class="label">Estimated Credit</div>
+              <div class="value" aria-live="polite">USD 5,000.00</div>
+            </div>
+            <div class="label">Status: <strong style="color:var(--ok)">Pending</strong></div>
+          </div>
+          <div class="kpi" role="listitem">
+            <div>
+              <div class="label">Response Window</div>
+              <div class="value" id="deadline">Today, 23:59</div>
+            </div>
+            <div class="label">Region: <strong>APAC</strong></div>
+          </div>
+        </div>
+
+        <div class="cta">
+          <button class="btn-primary" id="verifyBtn">Verify eligibility</button>
+          <button class="btn-ghost" id="viewPolicy">View policy</button>
+        </div>
+
+        <div class="foot">
+          <small>This page does not collect data, store cookies, or make any network requests. It’s just for fun.</small>
+          <small>Use of brand names or trademarks is intentionally avoided.</small>
+        </div>
+      </section>
+    </main>
+
+    <footer style="padding:16px 22px; color:#94a3b8; font-size:12px">
+      © <span id="year"></span> AuroraCorp. Confidential – Internal Use Only
+    </footer>
+  </div>
+
+  <div class="mask" id="mask" aria-modal="true" role="dialog">
+    <div class="modal" role="document">
+      <div class="badge">No worries 🤝</div>
+      <h2>ฉันแกล้งแกเล่นจ้ะ 😘</h2>
+      <p>Gotcha! Just a harmless prank. No data was collected or sent anywhere.</p>
+      <button class="btn-ghost" id="closeBtn">Close</button>
+    </div>
+  </div>
+
+  <script>
+    // Personalize greeting if ?n=Name is provided
+    const params = new URLSearchParams(location.search);
+    const name = params.get("n") || "";
+    const hello = document.getElementById("hello");
+    if (name) hello.textContent = `Hello ${name}, please review the details below and confirm.`;
+
+    // Set year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Fake deadline as today 23:59 local
+    const now = new Date();
+    const deadline = new Date(now);
+    deadline.setHours(23,59,0,0);
+    const opt = { hour: '2-digit', minute: '2-digit' };
+    document.getElementById("deadline").textContent =
+      `${now.toLocaleDateString(undefined, { weekday:'short', year:'numeric', month:'short', day:'numeric' })}, ${deadline.toLocaleTimeString(undefined, opt)}`;
+
+    // Reveal modal on click
+    const mask = document.getElementById("mask");
+    document.getElementById("verifyBtn").addEventListener("click", () => {
+      mask.style.display = "flex";
+    });
+    document.getElementById("closeBtn").addEventListener("click", () => {
+      mask.style.display = "none";
+    });
+
+    // "View policy" opens a minimal inline sheet that also reveals prank after a second
+    document.getElementById("viewPolicy").addEventListener("click", () => {
+      mask.style.display = "flex";
+      setTimeout(()=>{}, 1000);
+    });
+
+    // Accessibility: close on Escape
+    document.addEventListener("keydown", (e)=>{
+      if(e.key === "Escape" && mask.style.display === "flex") mask.style.display="none";
+    });
+  </script>
+</body>
+</html>
